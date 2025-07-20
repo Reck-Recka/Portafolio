@@ -8,7 +8,7 @@
     <meta name="description" content="David Perez: Portafolio de habilidades informáticas.">  
     <meta name="keywords" content="David Perez, html, css, javascript, python, postgresql, mongodb, windows, mac, linux, informática, hacking, networks, servers">  
     <base href="https://davidperezportafolio.vercel.app/">
-    <link rel="icon" href="img/IMG_22.jpg">
+    <link rel="icon" type="image/png" href="img/icons/h.png">
     <meta name="author" content="David Pérez"/>
     <meta name="theme-color" content="#007bff"/> 
     <meta name="robots" content="index, follow"/>
@@ -23,7 +23,7 @@
         <nav class="nav">
             <ul class="list_nav">
                 <li>
-                    <a href="#hero">Hero</a>
+                    <a href="#Inicio">Inicio</a>
                 </li>
                 <li>
                     <a href="#sobre_mi">Sobre mí</a>
@@ -43,18 +43,18 @@
     <main class="main">
         <section class="inicio">
             <h1>David Pérez Sillero</h1>
-            <h2>Bienvenidos a mi página web</h2>
-            <p>Este es un proyecto de PowerFP MÁSTER</p>
+            <!-- <h2>Bienvenidos a mi página web</h2> -->
+            <p></p>
         </section>
 
         <!--_______________________HERO_______________________-->
 
         <section class="hero" id="hero">
-            <img src="img/1.jpg" alt="david ironman" title="david ironman">
-            <h2>HERO</h2>
+            <img src="img/yo.jpeg" alt="david perez" title="david perez">
+            <h2>David <br> Pérez</h2>
             <p>
-                Proyecto thePowerFP <br> 
-                <span>Máster</span>
+                Informática y Ciberseguridad <br> 
+                <span>Soluciones Digitales</span>
             </p>
         </section>
 
@@ -98,7 +98,7 @@
         <section class="portafolio" id="portafolio">
             <h2>PORTAFOLIO</h2>
             <p>
-                Proyectos que debes conocer y de los que me siento orgulloso mostrar.
+                Proyectos representativos de mi trabajo.
             </p>
             <div class="card">
                 <div><img src="img/icons/icons_my/icons8-javascript-480.png" alt="JavaScript_logo" title="JavaScript_logo"></div>
@@ -138,35 +138,28 @@
             <div class="contact_title">
                 <h2>Contacto</h2>
                 <p>
-                    Introduce tus datos para no perderte de nada o por si quieres ofrecerme un trabajo bien remunerado.
+                    Contacto para oportunidades profesionales.
                 </p>
             </div>
-            <div class="form">
+            <form class="form" onsubmit="redirectToLinkedIn(event)">
                 <label>Nombre</label>
                 <input type="text" placeholder="Nombre">
                 <label>Apellidos</label>
                 <input type="text" placeholder="Apellidos">
-                <label>Fecha de nacimiento</label>
-                <input type="datetime-local">
-                <label>Correo electrónico</label>
+                <label>Empresa</label>
+                <input type="email" placeholder="Empresa">
+                <label>Empresa</label>
                 <input type="email" placeholder="Correo electrónico">
-                <label>¿Tienes la mayoría de edad?</label>
-                <div class="form_edad">
-                    <input type="radio" id="radio1" name="Mayoría edad" value="Si">
-                    <label for="radio1">Si</label>
-                    <input type="radio" id="radio2" name="Mayoría edad" value="No">
-                    <label for="radio1">No</label> 
-                </div>
                 <input type="reset">
                 <input type="submit" value="Enviar">
-            </div>
+            </form>
         </section>
     </main>
     
     <!--_______________________FOOTER_______________________-->
 
     <footer id="footer">
-        <h2>Sígueme en redes sociales</h2>
+        <h2>Conectemos en redes sociales</h2>
         <div class="footer_icons">
             <a href="https://github.com/Reck-Recka" target="_blank" rel="noopener"><img src="img/icons/icons_my/github.png" alt="github_logo" title="github_logo"></a>
             <a href="https://www.linkedin.com/in/david-pérez-sillero-2b39602bb" target="_blank" rel="noopener"><img src="img/icons/icons_my/linkedin.png" alt="Linkedin_logo" title="Linkedin_logo"></a>
@@ -175,6 +168,14 @@
         <h3>David Perez 2025</h3>
         <h4>Todos los derechos reservados &copy;</h4>
     </footer>
+
+<script>
+    function redirectToLinkedIn(event) {
+        event.preventDefault(); 
+        alert('¡Gracias por tu interés! Te redirigimos a LinkedIn.');
+        window.open('https://www.linkedin.com/in/david-pérez-sillero-2b39602bb', '_blank');
+    }
+</script>
 
 </body>
 </html>
