@@ -4,178 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>David Pérez</title>
-    <meta name="description" content="David Perez: Portafolio de habilidades informáticas.">  
+    <title>David Pérez - Portafolio Parallax</title>
+    <meta name="description" content="David Perez: Portafolio de habilidades informáticas con efectos parallax.">  
     <meta name="keywords" content="David Perez, html, css, javascript, python, postgresql, mongodb, windows, mac, linux, informática, hacking, networks, servers">  
-    
     <link rel="icon" type="image/png" href="img/icons/h.png">
     <meta name="author" content="David Pérez"/>
     <meta name="theme-color" content="#007bff"/> 
     <meta name="robots" content="index, follow"/>
-    <meta property="og:title" content="HTML"/> 
+    <meta property="og:title" content="David Pérez - Informática y Ciberseguridad"/> 
 </head>
 
-<!--_______________________BODY_______________________-->
-
 <body>
-    <header class="header">
-        <img src="img/icons/logo_david4.png" alt="Logotipo" title="logo_David">
+    <!-- Cursor personalizado -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header con efecto glassmorphism -->
+    <header class="header" id="header">
+        <img src="img/icons/logo_david4.png" alt="Logotipo" title="logo_David" class="logo">
         <nav class="nav">
             <ul class="list_nav">
-                <li>
-                    <a href="#Inicio">Inicio</a>
-                </li>
-                <li>
-                    <a href="#sobre_mi">Sobre mí</a>
-                </li>
-                <li>
-                    <a href="#portafolio">Portafolio</a>
-                </li>
-                <li>
-                    <a href="#contacto">Contacto</a>
-                </li>
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#sobre_mi" class="nav-link">Sobre mí</a></li>
+                <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
-    <!--_______________________MAIN______________________-->
-
     <main class="main">
-        <section class="inicio">
-            <h1>David Pérez Sillero</h1>
-            <!-- <h2>Bienvenidos a mi página web</h2> -->
-            <p></p>
+        <!-- HERO Section con Parallax -->
+        <section class="hero parallax-section" id="inicio">
+            <div class="parallax-bg" data-speed="0.5"></div>
+            <div class="hero-content">
+                <div class="hero-image-container" data-speed="0.3">
+                    <div class="image-glow"></div>
+                    <img src="img/yo.jpeg" alt="david perez" title="david perez" class="hero-image">
+                </div>
+                <div class="hero-text" data-speed="0.6">
+                    <h1 class="hero-title">
+                        <span class="title-line">David</span>
+                        <span class="title-line">Pérez</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        <span class="subtitle-text">Informática y Ciberseguridad</span>
+                        <span class="subtitle-accent">Soluciones Digitales</span>
+                    </p>
+                </div>
+                <div class="scroll-indicator" data-speed="0.8">
+                    <span>Scroll</span>
+                    <div class="scroll-line"></div>
+                </div>
+            </div>
+            
+            <!-- Partículas flotantes -->
+            <div class="particles">
+                <span style="--i:1;"></span>
+                <span style="--i:2;"></span>
+                <span style="--i:3;"></span>
+                <span style="--i:4;"></span>
+                <span style="--i:5;"></span>
+                <span style="--i:6;"></span>
+                <span style="--i:7;"></span>
+                <span style="--i:8;"></span>
+            </div>
         </section>
 
-        <!--_______________________HERO_______________________-->
+        <!-- SOBRE MÍ con capas parallax -->
+        <section class="my parallax-section" id="sobre_mi">
+            <div class="section-bg" data-speed="0.4"></div>
+            
+            <div class="section-header">
+                <h2 class="section-title reveal-text">Sobre mí</h2>
+                <div class="title-underline"></div>
+            </div>
 
-        <section class="hero" id="hero">
-            <img src="img/yo.jpeg" alt="david perez" title="david perez">
-            <h2>David <br> Pérez</h2>
-            <p>
-                Informática y Ciberseguridad <br> 
-                <span>Soluciones Digitales</span>
-            </p>
+            <div class="tech-grid">
+                <!-- Grid izquierda -->
+                <div class="tech-icons tech-icons-left">
+                    <div class="tech-icon" data-tech="HTML"><img src="img/icons/icons_my/html-5.png" alt="html_logo"></div>
+                    <div class="tech-icon" data-tech="CSS"><img src="img/icons/icons_my/icons8-css-400.png" alt="css_logo"></div>
+                    <div class="tech-icon" data-tech="JavaScript"><img src="img/icons/icons_my/icons8-javascript-480.png" alt="JavaScript_logo"></div>
+                    <div class="tech-icon" data-tech="Python"><img src="img/icons/icons_my/icons8-python-480.png" alt="Python_logo"></div>
+                    <div class="tech-icon" data-tech="Jupyter"><img src="img/icons/icons_my/icons8-jupyter-240.png" alt="Jupyter_logo"></div>
+                    <div class="tech-icon" data-tech="SAP"><img src="img/icons/icons_my/icons8-sap-480.png" alt="Sap_logo"></div>
+                </div>
+
+                <!-- Contenido central -->
+                <div class="about-content reveal-up">
+                    <div class="about-text">
+                        <p>
+                            Soy Técnico en <span class="highlight">Sistemas microinformáticos y Redes</span>, actualmente cursando el Grado Superior de <span class="highlight">Administración de Sistemas Informáticos en Red (ASIR)</span>, junto con un <span class="highlight">Máster en Ciberseguridad</span> en <span class="highlight-accent">ThePower FP</span>.
+                        </p>
+                        <p>
+                            A lo largo de mi formación y experiencia profesional, he desarrollado un perfil técnico versátil, con sólidos conocimientos en lenguajes como <span class="highlight">HTML</span>, <span class="highlight">CSS</span>, <span class="highlight">JavaScript</span>, <span class="highlight">Python</span> y <span class="highlight">SQL</span>, además de una base firme en <span class="highlight">redes</span>, <span class="highlight">servidores</span> y <span class="highlight">administración de sistemas</span>.
+                        </p>
+                        <p>
+                            En mi día a día trabajo en <span class="highlight">SEAT</span>, donde participo en proyectos del área de Recursos Humanos, combinando herramientas como <span class="highlight">SAP</span>, <span class="highlight">Excel</span>, <span class="highlight">Power BI</span> y <span class="highlight">Power Platform</span> para desarrollar soluciones y automatizaciones internas.
+                        </p>
+                        <p>
+                            También me desenvuelvo con fluidez en entornos <span class="highlight">Linux</span>, <span class="highlight">Windows</span> y <span class="highlight">MacOS</span>. Utilizo herramientas de desarrollo como <span class="highlight">GitHub</span>, <span class="highlight">LaTeX</span> y <span class="highlight">Obsidian</span>. Tengo experiencia con scripting en <span class="highlight">Bash</span> y <span class="highlight">PowerShell</span>, así como conocimientos de entornos cloud, especialmente <span class="highlight">Azure</span>.
+                        </p>
+                        <p>
+                            Siempre estoy aprendiendo y explorando nuevas tecnologías que me permitan aportar valor, mejorar procesos y crecer como profesional dentro del mundo IT y la ciberseguridad.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Grid derecha -->
+                <div class="tech-icons tech-icons-right">
+                    <div class="tech-icon" data-tech="Excel"><img src="img/icons/icons_my/icons8-ms-excel-480.png" alt="Excel_logo"></div>
+                    <div class="tech-icon" data-tech="SQL"><img src="img/icons/icons_my/icons8-sql-64.png" alt="sql_logo"></div>
+                    <div class="tech-icon" data-tech="MongoDB"><img src="img/icons/icons_my/mongodb.png" alt="MongoDB_logo"></div>
+                    <div class="tech-icon" data-tech="Networks"><img src="img/icons/icons_my/red-social.png" alt="Network_logo"></div>
+                    <div class="tech-icon" data-tech="Servers"><img src="img/icons/icons_my/servidor-de-cliente.png" alt="Server_logo"></div>
+                    <div class="tech-icon" data-tech="Bash"><img src="img/icons/icons_my/bash_logo.png" alt="bash_logo"></div>
+                </div>
+            </div>
+
+            <!-- Grid inferior con más tecnologías -->
+            <div class="tech-footer">
+                <div class="tech-icon" data-tech="PowerShell"><img src="img/icons/icons_my/PowerShell_icon.png" alt="Powershell_logo"></div>
+                <div class="tech-icon" data-tech="Power BI"><img src="img/icons/icons_my/icons8-power-bi-480.png" alt="PowerBI_logo"></div>
+                <div class="tech-icon" data-tech="Azure"><img src="img/icons/icons_my/icons8-azur-240.png" alt="Azure_logo"></div>
+                <div class="tech-icon" data-tech="GitHub"><img src="img/icons/icons_my/icons8-github-64.png" alt="Github_logo"></div>
+                <div class="tech-icon" data-tech="Windows"><img src="img/icons/icons_my/icons8-windows-10-480.png" alt="Windows_logo"></div>
+                <div class="tech-icon" data-tech="Linux"><img src="img/icons/icons_my/linux.png" alt="Linux_logo"></div>
+                <div class="tech-icon" data-tech="macOS"><img src="img/icons/icons_my/logotipo-de-apple.png" alt="apple_logo"></div>
+                <div class="tech-icon" data-tech="Obsidian"><img src="img/icons/icons_my/icons8-obsidiana-480.png" alt="Obsidian_logo"></div>
+            </div>
         </section>
 
-        <!--_______________________SOBRE MÍ_______________________-->
-
-        <section class="my" id="sobre_mi">
-            <div><img src="img/icons/icons_my/html-5.png" alt="html_logo" title="html_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-css-400.png" alt="css_logo" title="css_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-javascript-480.png" alt="JavaScript_logo" title="JavaScript_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-python-480.png" alt="Python_logo" title="Python_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-jupyter-240.png" alt="Jupyter_logo" title="Jupyter_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-sap-480.png" alt="Sap_logo" title="Sap_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-ms-excel-480.png" alt="Excel_logo" title="Excel_logo"></div>
-            <div class="item-text">
-                <h2>Sobre mí</h2>
-                <p>
-                    Soy Técnico en <span>Sistemas microinformáticos y Redes</span>, actualmente cursando el Grado Superior de <span>Administración de Sistemas Informáticos en Red (ASIR)</span>, junto con un <span>Máster en Ciberseguridad</span> en <span class="span_two">ThePower FP</span>.<br><br>
-                    A lo largo de mi formación y experiencia profesional, he desarrollado un perfil técnico versátil, con sólidos conocimientos en lenguajes como <span>HTML</span>, <span>CSS</span>, <span>JavaScript</span>, <span>Python</span> y <span>SQL</span>, además de una base firme en <span>redes</span>, <span>servidores</span> y <span>administración de sistemas</span>.<br><br>
-                    En mi día a día trabajo en <span>SEAT</span>, donde participo en proyectos del área de Recursos Humanos, combinando herramientas como <span>SAP</span>, <span>Excel</span>, <span>Power BI</span> y <span>Power Platform</span> para desarrollar soluciones y automatizaciones internas.<br><br>
-                    También me desenvuelvo con fluidez en entornos <span>Linux</span>, <span>Windows</span> y <span>MacOS</span>. Utilizo herramientas de desarrollo como <span>GitHub</span>, <span>LaTeX</span> y <span>Obsidian</span>. Tengo experiencia con scripting en <span>Bash</span> y <span>PowerShell</span>, así como conocimientos de entornos cloud, especialmente <span>Azure</span>.<br><br>
-                    Siempre estoy aprendiendo y explorando nuevas tecnologías que me permitan aportar valor, mejorar procesos y crecer como profesional dentro del mundo IT y la ciberseguridad.<br><br>
-                </p>
+        <!-- PORTAFOLIO con tarjetas 3D -->
+        <section class="portafolio parallax-section" id="portafolio">
+            <div class="section-bg" data-speed="0.3"></div>
+            
+            <div class="section-header">
+                <h2 class="section-title reveal-text">PORTAFOLIO</h2>
+                <p class="section-subtitle">Proyectos representativos de mi trabajo</p>
             </div>
-            <div><img src="img/icons/icons_my/icons8-sql-64.png" alt="sql_logo" title="sql_logo"></div>
-            <div><img src="img/icons/icons_my/mongodb.png" alt="MongoDB_logo_logo" title="MongoDB_logo_logo"></div>
-            <div><img src="img/icons/icons_my/red-social.png" alt="Network_logo" title="Network_logo"></div>
-            <div><img src="img/icons/icons_my/servidor-de-cliente.png" alt="Server_logo" title="Server_logo"></div>
-            <div><img src="img/icons/icons_my/bash_logo.png" alt="bash_logo" title="bash_logo"></div>
-            <div><img src="img/icons/icons_my/PowerShell_icon.png" alt="Powershell_logo" title="Powershell_logo"></div>
-            <div ><img src="img/icons/icons_my/icons8-power-bi-480.png" alt="PowerBI_logo" title="PowerBI_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-azur-240.png" alt="Azure_logo" title="Azure_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-github-64.png" alt="Github_logo" title="Github_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-windows-10-480.png" alt="Windows_logo" title="Windows_logo"></div>
-            <div><img src="img/icons/icons_my/linux.png" alt="Linux_logo" title="Linux_logo"></div>
-            <div><img src="img/icons/icons_my/logotipo-de-apple.png" alt="apple_logo" title="apple_logo"></div>
-            <div><img src="img/icons/icons_my/icons8-obsidiana-480.png" alt="Obsidian_logo" title="Obsidian_logo"></div>
+
+            <div class="cards-container">
+                <div class="card" data-tilt>
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <img src="img/icons/icons_my/icons8-javascript-480.png" alt="JavaScript_logo">
+                        </div>
+                        <h4>JavaScript</h4>
+                        <p>Desarrollo de aplicación en JavaScript para proyecto de Máster en ThePower academy.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <div class="card" data-tilt>
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <img src="img/icons/icons_my/icons8-python-480.png" alt="Python_logo">
+                        </div>
+                        <h4>Python</h4>
+                        <p>Desarrollo de Kata en Python para proyecto de Máster en ThePower academy.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <div class="card" data-tilt>
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <img src="img/icons/icons_my/icons8-postgresql-480.png" alt="PostgreSQL_logo">
+                        </div>
+                        <h4>PostgreSQL</h4>
+                        <p>Desarrollo de base de datos SQL con PostgreSQL para proyecto de Máster en ThePower academy.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+
+                <div class="card" data-tilt>
+                    <div class="card-inner">
+                        <div class="card-icon">
+                            <img src="img/icons/icons_my/mongodb.png" alt="MongoDB_logo">
+                        </div>
+                        <h4>MongoDB</h4>
+                        <p>Desarrollo de base de datos no SQL con MongoDB para proyecto de Máster en ThePower academy.</p>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!--_______________________PORTAFOLIO_______________________-->
+        <!-- CONTACTO -->
+        <section class="contact parallax-section" id="contacto">
+            <div class="section-bg" data-speed="0.5"></div>
+            
+            <div class="contact-container">
+                <div class="contact-info reveal-left">
+                    <h2 class="section-title">Contacto</h2>
+                    <p>¿Interesado en colaborar? Conectemos y hablemos sobre oportunidades profesionales.</p>
+                    <div class="contact-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">📧</span>
+                            <span>Disponible por email</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">💼</span>
+                            <span>LinkedIn activo</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🚀</span>
+                            <span>Proyectos en GitHub</span>
+                        </div>
+                    </div>
+                </div>
 
-        <section class="portafolio" id="portafolio">
-            <h2>PORTAFOLIO</h2>
-            <p>
-                Proyectos representativos de mi trabajo.
-            </p>
-            <div class="card">
-                <div><img src="img/icons/icons_my/icons8-javascript-480.png" alt="JavaScript_logo" title="JavaScript_logo"></div>
-                <h4>JavaScript</h4>
-                <p>
-                    Desarrollo de aplicación en JavaScript para proyecto de Máster en ThePower academy.
-                </p>
+                <form class="form reveal-right" onsubmit="redirectToLinkedIn(event)">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" placeholder="Tus apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" placeholder="Tu empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="tu.email@ejemplo.com" required>
+                    </div>
+                    <div class="form-buttons">
+                        <input type="reset" value="Limpiar">
+                        <input type="submit" value="Enviar mensaje">
+                    </div>
+                </form>
             </div>
-
-            <div class="card">
-                <div><img src="img/icons/icons_my/icons8-python-480.png" alt="Python_logo" title="Python_logo"></div>
-                <h4>Python</h4>
-                <p>
-                    Desarrollo de Kata en Python para proyecto de Máster en ThePower academy.
-                </p>
-            </div>
-            <div class="card">
-                <div><img src="img/icons/icons_my/icons8-postgresql-480.png" alt="PostgreSQL_logo" title="PostgreSQL_logo"></div>
-                <h4>PostgreSQL</h4>
-                <p>
-                    Desarrollo de base de datos SQL con PostgreSQL para proyecto de Máster en ThePower academy.
-                </p>
-            </div>
-            <div class="card">
-                <div><img src="img/icons/icons_my/mongodb.png" alt="MongoDB_logo" title="MongoDB_logo"></div>
-                <h4>MongoDB</h4>
-                <p>
-                    Desarrollo de base de datos no SQL con MongoDB para proyecto de Máster en ThePower academy.
-                </p>
-            </div>
-
-        </section>
-
-        <!--_______________________CONTACTO_______________________-->
-
-        <section class="contact" id="contacto">
-            <div class="contact_title">
-                <h2>Contacto</h2>
-                <p>
-                    Contacto para oportunidades profesionales.
-                </p>
-            </div>
-            <form class="form" onsubmit="redirectToLinkedIn(event)">
-                <label>Nombre</label>
-                <input type="text" placeholder="Nombre">
-                <label>Apellidos</label>
-                <input type="text" placeholder="Apellidos">
-                <label>Empresa</label>
-                <input type="email" placeholder="Empresa">
-                <label>Empresa</label>
-                <input type="email" placeholder="Correo electrónico">
-                <input type="reset">
-                <input type="submit" value="Enviar">
-            </form>
         </section>
     </main>
     
-    <!--_______________________FOOTER_______________________-->
-
+    <!-- FOOTER -->
     <footer id="footer">
-        <h2>Conectemos en redes sociales</h2>
-        <div class="footer_icons">
-            <a href="https://github.com/Reck-Recka" target="_blank" rel="noopener"><img src="img/icons/icons_my/github.png" alt="github_logo" title="github_logo"></a>
-            <a href="https://www.linkedin.com/in/david-pérez-sillero-2b39602bb" target="_blank" rel="noopener"><img src="img/icons/icons_my/linkedin.png" alt="Linkedin_logo" title="Linkedin_logo"></a>
-            <a href="https://reck-dps.netlify.app/" target="_blank" rel="noopener"><img src="img/icons/icons_my/logo.png" alt="github_logo" title="github_logo"></a> 
+        <div class="footer-content">
+            <h2>Conectemos en redes sociales</h2>
+            <div class="footer-icons">
+                <a href="https://github.com/Reck-Recka" target="_blank" rel="noopener" class="social-link">
+                    <img src="img/icons/icons_my/github.png" alt="github_logo">
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/david-pérez-sillero-2b39602bb" target="_blank" rel="noopener" class="social-link">
+                    <img src="img/icons/icons_my/linkedin.png" alt="Linkedin_logo">
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://reck-dps.netlify.app/" target="_blank" rel="noopener" class="social-link">
+                    <img src="img/icons/icons_my/logo.png" alt="portfolio_logo">
+                    <span>Portfolio</span>
+                </a> 
+            </div>
+            <h3 class="footer-signature">David Perez 2025</h3>
+            <h4>Todos los derechos reservados &copy;</h4>
         </div>
-        <h3>David Perez 2025</h3>
-        <h4>Todos los derechos reservados &copy;</h4>
     </footer>
 
-<script>
-    function redirectToLinkedIn(event) {
-        event.preventDefault(); 
-        alert('¡Gracias por tu interés! Te redirigimos a LinkedIn.');
-        window.open('https://www.linkedin.com/in/david-pérez-sillero-2b39602bb', '_blank');
-    }
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
