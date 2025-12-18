@@ -61,20 +61,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ==================== EFECTO DE CAPAS 3D AL HACER SCROLL (ESTILO APPLE/GOOGLE) ====================
+// ==================== EFECTO DE CAPAS 3D MEJORADO - LEGIBILIDAD PERFECTA ====================
 class LayeredScrollEffect {
     constructor() {
         this.sections = document.querySelectorAll('.parallax-section');
-        this.currentSection = 0;
         this.isScrolling = false;
-        this.lastScrollTop = 0;
+        this.activeSection = null;
         
         this.init();
     }
     
     init() {
         window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
-        // Inicializar posiciones
         this.update();
     }
     
@@ -89,8 +87,8 @@ class LayeredScrollEffect {
     }
     
     update() {
-        const scrollTop = window.pageYOffset;
         const windowHeight = window.innerHeight;
+        const scrollTop = window.pageYOffset;
         
         this.sections.forEach((section, index) => {
             const rect = section.getBoundingClientRect();
@@ -98,82 +96,128 @@ class LayeredScrollEffect {
             const sectionHeight = rect.height;
             const sectionBottom = rect.bottom;
             
-            // Calcular el progreso de scroll de la sección
-            const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight);
+            // Calcular posición de la sección en relación al viewport
+            const viewportCenter = windowHeight / 2;
+            const sectionCenter = sectionTop + (sectionHeight / 2);
+            const distanceFromCenter = Math.abs(viewportCenter - sectionCenter);
             
-            // EFECTO DE DESPEGUE Y SUPERPOSICIÓN 3D
-            if (sectionTop < 0 && sectionBottom > 0) {
-                // La sección está siendo cubierta por la siguiente
-                const coverProgress = Math.abs(sectionTop) / windowHeight;
-                
-                // Escala progresiva (se hace más pequeña)
-                const scale = Math.max(0.80, 1 - coverProgress * 0.20);
-                
-                // Profundidad Z (se aleja)
-                const translateZ = Math.min(-150, coverProgress * -250);
-                
-                // Rotación en X (efecto de despegue)
-                const rotateX = Math.min(15, coverProgress * 20);
-                
-                // Brillo (se oscurece)
-                const brightness = Math.max(0.5, 1 - coverProgress * 0.5);
-                
-                // Blur de profundidad de campo
-                const blur = Math.min(5, coverProgress * 8);
-                
-                section.style.transform = `
-                    scale(${scale}) 
-                    translateZ(${translateZ}px) 
-                    rotateX(${rotateX}deg)
-                `;
-                section.style.filter = `brightness(${brightness}) blur(${blur}px)`;
-                section.style.borderRadius = `${Math.min(30, coverProgress * 40)}px`;
-                section.classList.add('scaling');
-                
-                // Aplicar transformación al contenido interno para efecto parallax
-                const content = section.children;
-                Array.from(content).forEach((child, childIndex) => {
-                    const depth = (childIndex + 1) * 10;
-                    child.style.transform = `translateZ(${depth - coverProgress * depth * 2}px)`;
-                });
-                
-            } else if (sectionTop >= 0) {
-                // La sección está por entrar o es visible
+            // ZONA DE LEGIBILIDAD: Cuando la sección está centrada (±30% del viewport)
+            const readingZone = windowHeight * 0.3;
+            const isInReadingZone = distanceFromCenter < readingZone && sectionTop < windowHeight * 0.4 && sectionBottom > windowHeight * 0.6;
+            
+            // SECCIÓN ACTIVA (perfectamente legible)
+            if (isInReadingZone || (sectionTop >= 0 && sectionTop < windowHeight * 0.2)) {
                 section.style.transform = 'scale(1) translateZ(0) rotateX(0deg)';
                 section.style.filter = 'brightness(1) blur(0px)';
                 section.style.borderRadius = '0px';
+                section.style.opacity = '1';
+                section.style.pointerEvents = 'auto';
                 section.classList.remove('scaling');
+                section.classList.add('active');
                 
-                // Reset de transformaciones del contenido
+                // Reset contenido
                 const content = section.children;
                 Array.from(content).forEach(child => {
-                    child.style.transform = 'translateZ(0)';
+                    if (!child.classList.contains('parallax-bg')) {
+                        child.style.transform = '';
+                    }
                 });
+            }
+            // SECCIÓN SALIENDO (siendo cubierta) - Solo cuando realmente sale
+            else if (sectionTop < -windowHeight * 0.1 && sectionBottom > 0) {
+                const coverProgress = Math.abs(sectionTop + windowHeight * 0.1) / (windowHeight * 0.9);
+                const clampedProgress = Math.min(1, Math.max(0, coverProgress));
                 
-            } else if (sectionBottom <= 0) {
-                // La sección ya pasó completamente
+                // Efectos más suaves y controlados
+                const scale = Math.max(0.88, 1 - clampedProgress * 0.12);
+                const translateZ = Math.min(-80, clampedProgress * -120);
+                const rotateX = Math.min(8, clampedProgress * 12);
+                const brightness = Math.max(0.6, 1 - clampedProgress * 0.4);
+                const blur = Math.min(3, clampedProgress * 4);
+                
+                section.style.transform = `scale(${scale}) translateZ(${translateZ}px) rotateX(${rotateX}deg)`;
+                section.style.filter = `brightness(${brightness}) blur(${blur}px)`;
+                section.style.borderRadius = `${Math.min(20, clampedProgress * 25)}px`;
+                section.classList.add('scaling');
+                section.classList.remove('active');
+            }
+            // SECCIÓN COMPLETAMENTE FUERA
+            else if (sectionBottom <= 0) {
                 section.style.opacity = '0';
                 section.style.pointerEvents = 'none';
-            } else {
+                section.style.transform = 'scale(0.85) translateZ(-100px) rotateX(10deg)';
+            }
+            // SECCIÓN POR ENTRAR (debajo)
+            else if (sectionTop >= windowHeight) {
+                section.style.transform = 'scale(1) translateZ(0) rotateX(0deg)';
+                section.style.filter = 'brightness(1) blur(0px)';
                 section.style.opacity = '1';
                 section.style.pointerEvents = 'auto';
             }
+            // RESTO (transición suave)
+            else {
+                section.style.transform = 'scale(1) translateZ(0) rotateX(0deg)';
+                section.style.filter = 'brightness(1) blur(0px)';
+                section.style.borderRadius = '0px';
+                section.style.opacity = '1';
+                section.classList.remove('scaling');
+            }
             
-            // Animar el fondo de la sección con parallax vertical
+            // Parallax de fondo más suave
             const bg = section.querySelector('.section-bg, .parallax-bg');
-            if (bg && scrollProgress >= -0.2 && scrollProgress <= 1.2) {
-                const bgOffset = (scrollProgress - 0.5) * 150;
-                const bgScale = 1.1 + (Math.abs(scrollProgress - 0.5) * 0.1);
-                bg.style.transform = `translate3d(0, ${bgOffset}px, -50px) scale(${bgScale})`;
+            if (bg) {
+                const scrollProgress = (windowHeight - sectionTop) / (windowHeight + sectionHeight);
+                if (scrollProgress >= -0.1 && scrollProgress <= 1.1) {
+                    const bgOffset = (scrollProgress - 0.5) * 80; // Reducido de 150 a 80
+                    const bgScale = 1.05 + (Math.abs(scrollProgress - 0.5) * 0.05); // Reducido
+                    bg.style.transform = `translate3d(0, ${bgOffset}px, -30px) scale(${bgScale})`;
+                }
             }
         });
-        
-        this.lastScrollTop = scrollTop;
     }
 }
 
 // Inicializar efecto de capas
 const layeredScroll = new LayeredScrollEffect();
+
+// ==================== DETECCIÓN DE SCROLL QUIETO PARA LEGIBILIDAD ====================
+let scrollTimeout;
+let isScrollingActive = false;
+
+window.addEventListener('scroll', () => {
+    // Marcar que estamos scrolleando
+    isScrollingActive = true;
+    document.body.classList.add('is-scrolling');
+    
+    // Limpiar timeout anterior
+    clearTimeout(scrollTimeout);
+    
+    // Después de 150ms sin scroll, consideramos que está quieto
+    scrollTimeout = setTimeout(() => {
+        isScrollingActive = false;
+        document.body.classList.remove('is-scrolling');
+        
+        // Forzar reset de la sección activa para máxima legibilidad
+        const sections = document.querySelectorAll('.parallax-section');
+        const windowHeight = window.innerHeight;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const viewportCenter = windowHeight / 2;
+            const sectionCenter = rect.top + (rect.height / 2);
+            const distanceFromCenter = Math.abs(viewportCenter - sectionCenter);
+            
+            // Si está cerca del centro, asegurar legibilidad perfecta
+            if (distanceFromCenter < windowHeight * 0.4) {
+                section.style.transform = 'scale(1) translateZ(0) rotateX(0deg)';
+                section.style.filter = 'brightness(1) blur(0px)';
+                section.style.borderRadius = '0px';
+                section.classList.add('active');
+                section.classList.remove('scaling');
+            }
+        });
+    }, 150);
+}, { passive: true });
 
 // ==================== EFECTO 3D DINÁMICO EN TÍTULOS ====================
 const sectionTitles = document.querySelectorAll('.section-title');
@@ -240,7 +284,7 @@ window.addEventListener('scroll', () => {
     
     const scrolled = window.pageYOffset;
     
-    // Parallax para elementos con data-speed
+    // Parallax para elementos con data-speed (más sutil)
     const parallaxElements = document.querySelectorAll('[data-speed]');
     
     parallaxElements.forEach(element => {
@@ -250,20 +294,16 @@ window.addEventListener('scroll', () => {
         
         // Solo aplicar parallax cuando el elemento está cerca del viewport
         if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-            const yPos = -(scrolled - elementTop) * speed;
+            // Parallax vertical más suave
+            const yPos = -(scrolled - elementTop) * speed * 0.5; // Reducido a la mitad
             
-            // Añadir rotación sutil para más profundidad 3D
-            const rotateX = (rect.top - window.innerHeight / 2) / window.innerHeight * 3;
-            const rotateY = scrollDirection === 'down' ? -2 : 2;
+            // Rotación muy sutil (solo 1-2 grados)
+            const rotateX = (rect.top - window.innerHeight / 2) / window.innerHeight * 1.5;
             
-            element.style.transform = `
-                translate3d(0, ${yPos}px, 0) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg)
-            `;
+            element.style.transform = `translate3d(0, ${yPos}px, 0) rotateX(${rotateX}deg)`;
         }
     });
-});
+}, { passive: true });
 
 // ==================== EFECTO DE TRANSICIÓN SUAVE ENTRE SECCIONES ====================
 const sections = document.querySelectorAll('.parallax-section');

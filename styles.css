@@ -68,6 +68,19 @@ body {
     cursor: none;
 }
 
+/* Estado cuando el usuario está scrolleando */
+body.is-scrolling {
+    /* Permitir transiciones suaves durante el scroll */
+}
+
+/* Estado cuando el usuario está quieto */
+body:not(.is-scrolling) .parallax-section.active {
+    /* Forzar legibilidad perfecta cuando está quieto */
+    transform: scale(1) translateZ(0) rotateX(0deg) !important;
+    filter: brightness(1) blur(0px) !important;
+    border-radius: 0 !important;
+}
+
 /* Cursor personalizado */
 .cursor {
     width: 20px;
@@ -188,9 +201,13 @@ a:hover {
     top: 0;
     transform-style: preserve-3d;
     will-change: transform, opacity;
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Transiciones más rápidas y suaves */
+    transition: 
+        transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease-out;
 }
 
 /* Cada sección tiene un z-index progresivo para crear el efecto de capas */
@@ -199,26 +216,29 @@ a:hover {
 .parallax-section:nth-child(3) { z-index: 3; }
 .parallax-section:nth-child(4) { z-index: 2; }
 
-/* Efecto de escala al salir con sombra 3D */
-.parallax-section.scaling {
-    transform: scale(0.95) translateZ(-100px);
-    filter: brightness(0.7);
-    box-shadow: 
-        0 50px 100px rgba(0, 0, 0, 0.8),
-        0 0 100px rgba(0, 255, 136, 0.1),
-        inset 0 0 100px rgba(0, 0, 0, 0.3);
+/* Sección activa (completamente legible) */
+.parallax-section.active {
+    transform: scale(1) translateZ(0) rotateX(0deg) !important;
+    filter: brightness(1) blur(0px) !important;
+    border-radius: 0 !important;
 }
 
-/* Efecto de entrada */
+/* Efecto de escala al salir con sombra 3D */
+.parallax-section.scaling {
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        0 0 80px rgba(0, 255, 136, 0.08),
+        inset 0 0 80px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de entrada más suave */
 .parallax-section.entering {
-    transform: scale(1) translateZ(0);
-    filter: brightness(1);
-    animation: sectionEnter 1s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: sectionEnter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes sectionEnter {
     from {
-        transform: scale(0.9) translateZ(-200px) rotateX(10deg);
+        transform: scale(0.95) translateZ(-100px) rotateX(5deg);
         opacity: 0;
     }
     to {
@@ -227,21 +247,21 @@ a:hover {
     }
 }
 
-/* Efecto de borde 3D en las secciones */
+/* Efecto de borde 3D en las secciones más sutil */
 .parallax-section::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 3px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        rgba(0, 255, 136, 0.5) 50%, 
+        rgba(0, 255, 136, 0.4) 50%, 
         transparent 100%);
     z-index: 10;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 .parallax-section.scaling::before {
@@ -258,13 +278,15 @@ a:hover {
     background-size: cover;
     background-position: center;
     will-change: transform;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Transición más rápida para parallax de fondo */
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     transform-style: preserve-3d;
 }
 
 /* Efecto de profundidad en el contenido */
 .parallax-section > * {
     transform-style: preserve-3d;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /*_____________HERO SECTION_____________*/
@@ -334,20 +356,22 @@ a:hover {
 .hero-image {
     width: 100%;
     max-width: 400px;
+    aspect-ratio: 1 / 1;
     height: auto;
+    object-fit: cover;
     border-radius: 20px;
     border: 2px solid rgba(0, 255, 136, 0.3);
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 40px rgba(0, 255, 136, 0.2),
         inset 0 0 20px rgba(0, 255, 136, 0.1);
-    transition: all 0.5s var(--transition-smooth);
+    transition: all 0.4s var(--transition-smooth);
     position: relative;
     z-index: 1;
 }
 
 .hero-image:hover {
-    transform: translateY(-10px) rotateY(5deg);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.7),
         0 0 60px rgba(0, 255, 136, 0.4);
@@ -578,7 +602,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.4s var(--transition-smooth);
+    transition: all 0.3s var(--transition-smooth);
     cursor: pointer;
     overflow: hidden;
 }
@@ -591,7 +615,7 @@ a:hover {
     transform: translate(-50%, -50%);
     opacity: 0;
     color: var(--color-white);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     white-space: nowrap;
     z-index: 2;
@@ -599,8 +623,8 @@ a:hover {
 }
 
 .tech-icon img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     object-fit: contain;
     transition: all 0.3s var(--transition-smooth);
     position: relative;
@@ -742,14 +766,15 @@ a:hover {
 }
 
 .card-icon img {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
     filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
-    transition: all 0.4s var(--transition-smooth);
+    transition: all 0.3s var(--transition-smooth);
 }
 
 .card:hover .card-icon img {
-    transform: scale(1.2) rotateY(180deg) translateZ(30px);
+    transform: scale(1.15) rotateY(180deg) translateZ(20px);
     filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.8));
 }
 
@@ -758,7 +783,7 @@ a:hover {
     color: var(--color-white);
     margin-bottom: 1rem;
     transition: all 0.3s var(--transition-smooth);
-    transform: translateZ(30px);
+    transform: translateZ(20px);
     position: relative;
     z-index: 1;
 }
@@ -766,25 +791,25 @@ a:hover {
 .card:hover h4 {
     color: var(--color-green);
     text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-    transform: translateZ(40px) scale(1.05);
+    transform: translateZ(25px) scale(1.03);
 }
 
 .card p {
     color: var(--color-whitelight);
-    line-height: 1.6;
+    line-height: 1.7;
     font-size: 0.95rem;
-    transform: translateZ(20px);
+    transform: translateZ(15px);
     position: relative;
     z-index: 1;
 }
 
 .card:hover .card-inner {
-    transform: translateY(-20px) translateZ(30px);
+    transform: translateY(-15px) translateZ(20px);
     border-color: var(--color-green);
     box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.5),
-        0 0 60px rgba(0, 255, 136, 0.4),
-        inset 0 0 40px rgba(0, 255, 136, 0.1);
+        0 25px 70px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(0, 255, 136, 0.35),
+        inset 0 0 30px rgba(0, 255, 136, 0.08);
 }
 
 /*_____________CONTACTO SECTION_____________*/
@@ -1059,6 +1084,10 @@ input[type='submit']:hover {
         order: -1;
         margin: 0 auto;
     }
+    
+    .hero-image {
+        max-width: 320px;
+    }
 
     .tech-grid {
         grid-template-columns: 1fr;
@@ -1080,8 +1109,12 @@ input[type='submit']:hover {
         perspective: 1500px;
     }
     
-    .parallax-section.scaling {
-        transform: scale(0.92) translateZ(-50px) rotateX(5deg);
+    .parallax-section {
+        /* Transiciones aún más rápidas en tablet */
+        transition: 
+            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+            filter 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.15s ease-out;
     }
 }
 
@@ -1119,13 +1152,17 @@ input[type='submit']:hover {
     }
     
     .parallax-section {
+        /* Posición relative en móvil para scroll tradicional */
         position: relative;
+        /* Sin transiciones complejas */
+        transition: opacity 0.2s ease-out;
     }
     
     .parallax-section.scaling {
-        transform: scale(0.95) translateZ(0) rotateX(0deg);
-        filter: brightness(0.8);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        /* Efectos muy reducidos en móvil */
+        transform: scale(0.96) translateZ(0) rotateX(0deg) !important;
+        filter: brightness(0.85) blur(0px) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
     }
     
     /* Desactivar animaciones complejas en móvil */
@@ -1139,6 +1176,22 @@ input[type='submit']:hover {
     
     .card:hover .card-icon img {
         transform: scale(1.1) rotateY(180deg) translateZ(0);
+    }
+    
+    /* Imagen hero más pequeña en móvil */
+    .hero-image {
+        max-width: 280px;
+    }
+    
+    /* Iconos tech más pequeños */
+    .tech-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .tech-icon img {
+        width: 38px;
+        height: 38px;
     }
 }
 
@@ -1161,18 +1214,42 @@ input[type='submit']:hover {
     
     /* Mínimo de efectos 3D en móviles pequeños */
     .parallax-section {
-        position: relative;
+        position: relative !important;
         transform: none !important;
+        filter: none !important;
     }
     
     .parallax-section.scaling {
         transform: none !important;
-        filter: brightness(0.9);
+        filter: brightness(0.95) !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
     }
     
     /* Mantener scroll normal en móviles pequeños */
     .main {
         perspective: none;
+    }
+    
+    /* Imagen hero aún más pequeña */
+    .hero-image {
+        max-width: 240px;
+    }
+    
+    /* Iconos tech aún más pequeños */
+    .tech-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tech-icon img {
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* Iconos de tarjetas más pequeños */
+    .card-icon img {
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -1191,5 +1268,13 @@ input[type='submit']:hover {
     
     .particles {
         display: none;
+    }
+    
+    .parallax-section,
+    .parallax-section.scaling,
+    .parallax-section.active {
+        position: relative !important;
+        transform: none !important;
+        filter: none !important;
     }
 }
